@@ -19,15 +19,11 @@ export const navStyles = {
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'start',
-    backgroundColor: '#000',
-    width: '230px',
-    height: '100vh',
-    position: 'fixed',
     top: '0',
     left: '0',
     gap: '6px'
   },
-  buttom: { 
+  button: {
     width: '100%',
     margin: '20px auto',
     padding: '10px',
@@ -36,13 +32,39 @@ export const navStyles = {
     borderRadius: '30px',
     textTransform: 'none',
     fontSize: '1.1rem',
+    fontWeight: '600',
     '&:hover': {
       backgroundColor: '#d7dbdc',
     }
   },
   main: {
+    left: '320px',
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'space-between',
+    width: '230px',
+    height: '100vh',
+    position: 'fixed',
   },
+  topNavBar: {
+    position: 'fixed',
+    width: '100%',           
+    maxWidth: '598px',
+    top: '0',
+    left: '50%',
+    transform: 'translateX(-50%)',  
+    border: '1px solid #2f3336',    
+    zIndex: 1000,
+    backgroundColor: 'rgba(0, 0, 0, 0.8)',
+  },
+  tabs: {
+    minWidth: '150px',
+    width: '300px',
+    textTransform: 'none',
+    transition: '.3s',
+    '&:hover': {
+      backgroundColor: 'rgba(37, 37, 37, 0.8)',
+    },
+  }
 }
+
