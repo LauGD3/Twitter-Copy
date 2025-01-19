@@ -30,7 +30,6 @@ export default function MiniUser({ isVerified, username, aka, isOtherUser}: Mini
           <Box sx={userStyles.textBox}>
             <Box sx={userStyles.verifiedBox}>
               <strong >{aka}</strong>
-              {/* Espacio reservado para el ícono */}
               {isVerified ? (
                 <VerifiedIcon sx={{ color: "#1e9bf0", width: '18px', height: '18px' }} />
               ) : (

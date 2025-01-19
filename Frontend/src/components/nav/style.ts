@@ -38,7 +38,7 @@ export const navStyles = {
     }
   },
   main: {
-    left: '320px',
+    left: '16.3%',
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'space-between',
