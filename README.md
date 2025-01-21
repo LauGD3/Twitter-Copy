@@ -26,10 +26,6 @@ Contributions are always welcome! If you find any bugs or have suggestions for i
 
 *I will review all pull requests and merge them after making sure they align with the goals of the project.*
 
-# How to setup & run the proyect (frontend)
-
-Follow these steps to get the project up and running on your local machine:
-
 # How to setup & run the project (frontend)
 
 Follow these steps to get the project up and running on your local machine:
