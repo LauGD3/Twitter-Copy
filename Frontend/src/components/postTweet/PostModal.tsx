@@ -1,7 +1,6 @@
-import { MouseEvent, useState } from "react";
+import { ChangeEvent, MouseEvent, useState } from "react";
 // Material UI - Components
-import { Avatar, Box, Button, Modal, Popover, TextField, Typography } from "@mui/material";
-import Divider from '@mui/material/Divider';
+import { Avatar, Box, Button, Modal, Popover, TextField, Divider } from "@mui/material";
 // Styles
 import { styles } from "./style";
 // Material UI - Icons
@@ -19,6 +18,8 @@ type PostModalProps = {
   handleClose: () => void;
 }
 
+const MAX_CHARACTERS = 250;
+
 /**
  * PostModal component
  * 
@@ -28,6 +29,19 @@ type PostModalProps = {
  * @description This component renders a modal when the user clicks on the post button. The modal has a text field where the user can write a tweet, and a button to select who can reply to the tweet. The modal also has a button to save the tweet as a draft.
  */
 export default function PostModal({ open, handleClose }: PostModalProps) {
+  const [text, setText] = useState<string>("");
+  const [percentage, setPercentage] = useState(0);
+  const [remaining, setRemaining] = useState(MAX_CHARACTERS);
+
+  const handleTextChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const value = event.target.value;
+    const length = value.length;
+
+    setText(value);
+    setPercentage(Math.min((length / MAX_CHARACTERS) * 100, 100));
+    setRemaining(MAX_CHARACTERS - length);
+  };
+
   return (
     <Modal
       open={open}
@@ -43,7 +57,7 @@ export default function PostModal({ open, handleClose }: PostModalProps) {
             <Button sx={{ borderRadius: 30, textTransform: 'none', padding: '5px 20px' }}>Drafts</Button>
           </Box>
           {/* Body */}
-          <Box sx={{ height: '8rem', width: '35rem'}}>
+          <Box sx={{ height: '8rem', width: '35rem' }}>
             <Box sx={styles.bodyModal}>
               <Avatar
                 alt="User Avatar"
@@ -55,18 +69,27 @@ export default function PostModal({ open, handleClose }: PostModalProps) {
                 placeholder="Whats Happening?!"
                 InputProps={{ disableUnderline: true }}
                 sx={styles.textField}
+                maxRows={4}
+                onChange={handleTextChange}
               />
             </Box>
           </Box>
           {/* Buttom */}
           <ReplyOptionsModal />
-          <Divider sx={{backgroundColor: '#1e1e1e'}}/>
+          <Divider sx={{ backgroundColor: '#1e1e1e' }} />
           <Box sx={styles.buttomContainer}>
-            <Box sx={{ display: 'flex'}}>
-              <InsertPhotoOutlinedIcon sx={styles.buttomIcons}/>
-              <GifBoxOutlinedIcon sx={styles.buttomIcons}/>
+            <Box sx={{ display: 'flex' }}>
+              <InsertPhotoOutlinedIcon sx={styles.buttomIcons} />
+              <GifBoxOutlinedIcon sx={styles.buttomIcons} />
             </Box>
-            <Button variant="contained" sx={styles.button}>Post</Button>
+            <Box sx={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+              {
+                text.length > 0 ? (
+                  <ProgressCircle percentage={percentage} remaining={remaining} />
+                ) : <Box sx={{ width: '30px' }}></Box>
+              }
+              <Button variant="contained" sx={styles.button} >Post</Button>
+            </Box>
           </Box>
 
         </Box>
@@ -74,7 +97,7 @@ export default function PostModal({ open, handleClose }: PostModalProps) {
     </Modal>
 
   );
-}
+};
 
 /**
  * ReplyOptionsModal component
@@ -93,7 +116,7 @@ function ReplyOptionsModal() {
     "Only accounts you mention",
   ];
 
-  const handleOpenReplyM = (event: React.MouseEvent<HTMLElement>) => setAnchorEl(event.currentTarget);
+  const handleOpenReplyM = (event: MouseEvent<HTMLElement>) => setAnchorEl(event.currentTarget);
 
   const handleCloseReplyM = () => setTimeout(() => setAnchorEl(null), 40);
 
@@ -101,7 +124,11 @@ function ReplyOptionsModal() {
 
   return (
     <>
-      <Button onClick={handleOpenReplyM} sx={{ borderRadius: 30, textTransform: "none", padding: "2px 20px", marginBottom: '0.5rem' }}>
+      <Button onClick={handleOpenReplyM} sx={styles.buttonPopover}>
+        {selectedTitle === "Everyone" && <PublicIcon sx={styles.iconPopOver} />}
+        {selectedTitle === "Account you follow" && <GroupAddIcon sx={styles.iconPopOver} />}
+        {selectedTitle === "Verified accounts" && <VerifiedIcon sx={styles.iconPopOver} />}
+        {selectedTitle === "Only accounts you mention" && <AlternateEmailIcon sx={styles.iconPopOver} />}
         {selectedTitle} can reply
       </Button>
 
@@ -145,7 +172,7 @@ function ReplyOptionsModal() {
       </Popover>
     </>
   );
-}
+};
 
 type ReplyOptionsProps = {
   title: string;
@@ -177,4 +204,69 @@ function ReplyOptions({ title, onSelect, isSelected }: ReplyOptionsProps) {
       {isSelected ? <CheckOutlinedIcon sx={{ color: "#1e9bf0" }} /> : <Box sx={{ width: "10px" }} />}
     </Box>
   );
-}
+};
+
+type ProgressCricleProps = {
+  percentage: number;
+  remaining: number;
+};
+
+/**
+ * Renders a progress circle SVG component to visually indicate the progress percentage.
+ *
+ * @param {number} percentage - The percentage of progress to display, ranging from 0 to 100.
+ * @param {number} remaining - The number of characters remaining, used to dynamically change the stroke color.
+ * 
+ * The circle's stroke color changes based on the remaining characters:
+ * - Red ("#F4212E") if remaining is negative.
+ * - Yellow ("#FFD400") if remaining is less than 21.
+ * - Blue ("#1E9BF0") otherwise.
+ * 
+ * If the remaining characters are less than 21, the number is displayed in the center of the circle.
+ */
+const ProgressCircle = ({ percentage, remaining }: ProgressCricleProps) => {
+  const radius = 10;
+  const circumference = 2 * Math.PI * radius;
+  const filled = (percentage / 100) * circumference;
+  const strokeColor =
+    remaining < 0
+      ? "#F4212E"
+      : remaining < 21
+        ? "#FFD400"
+        : "#1E9BF0";
+
+  return (
+    <svg width="30" height="30" viewBox="0 0 25 25">
+      <circle
+        cx="12.5"
+        cy="12.5"
+        r={radius}
+        fill="none"
+        stroke="#e0e0e0"
+        strokeWidth="2.4"
+      />
+      <circle
+        cx="12.5"
+        cy="12.5"
+        r={radius}
+        fill="none"
+        stroke={strokeColor}
+        strokeWidth="2"
+        strokeDasharray={`${filled} ${circumference - filled}`}
+        strokeDashoffset="0"
+        transform="rotate(-90 12.5 12.5)"
+      />
+      {remaining < +21 && (
+        <text
+          x="12.5"
+          y="13.5"
+          textAnchor="middle"
+          fontSize="10"
+          fill={strokeColor}
+        >
+          {remaining}
+        </text>
+      )}
+    </svg>
+  );
+};

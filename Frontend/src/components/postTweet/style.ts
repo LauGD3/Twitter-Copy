@@ -109,20 +109,32 @@ export const styles = {
       backgroundColor: '#d7dbdc',
     },
   },
-  buttomIcons: { 
-    color: '#1e9bf0', 
-    padding: '8px', 
+  buttomIcons: {
+    color: '#1e9bf0',
+    padding: '8px',
     borderRadius: '50%',
     '&:hover': {
       bgcolor: 'rgba(36, 45, 52, 0.48)',
       cursor: 'pointer'
-    } 
+    }
   },
-  buttomContainer: { 
-    display: 'flex', 
-    justifyContent: 'space-between', 
-    alignItems: 'center', 
-    padding: '0 1rem', 
-    marginTop: '0.5rem' 
+  buttomContainer: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    padding: '0 1rem',
+    marginTop: '0.5rem'
+  },
+  buttonPopover: {
+    borderRadius: 30,
+    textTransform: "none",
+    padding: "2px 20px",
+    marginBottom: '0.5rem',
+    display: 'flex',
+    alignItems: 'center'
+  },
+  iconPopOver: {
+    width: '15px', 
+    marginRight: '5px'
   }
 };
