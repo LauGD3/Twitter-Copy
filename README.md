@@ -50,3 +50,7 @@ Follow these steps to get the project up and running on your local machine:
 ```bash
   npm run dev
 ```
+
+# About the Twitter-chirp Font
+
+This font family was created by Twitter and is proprietary, intended exclusively for use by the company's team. However, I came across an unofficial copy on GitHub. [Here is the repository:](https://github.com/edwardbetes/chirp-font).  
