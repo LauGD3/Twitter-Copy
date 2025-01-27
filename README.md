@@ -1,5 +1,5 @@
-# X Copy - A copy of the social network X
-This repository was created to improve my frontend development skills with TypeScript and React. I used a template from Vite with SWC to set up the project. The main goal is to replicate the visual aspects of the social network X. While this is currently just a frontend clone, I plan to update it in the future by integrating persistence and a backend, making it a fully functional copy as close as possible to the original. This project serves as an educational tool for me to learn and apply modern web development techniques.
+# Twitter Copy - A copy of the social network Twitter
+This repository was created to improve my frontend development skills with TypeScript and React. I used a template from Vite with SWC to set up the project. The main goal is to replicate the visual aspects of the social network Twitter. While this is currently just a frontend clone, I plan to update it in the future by integrating persistence and a backend, making it a fully functional copy as close as possible to the original. This project serves as an educational tool for me to learn and apply modern web development techniques.
 
 # Dependencies 👾
 
@@ -32,11 +32,11 @@ Follow these steps to get the project up and running on your local machine:
 
 1. Clone the repository:
 ```bash
-  git clone https://github.com/LauGD3/X-Copy.git
+  git clone https://github.com/LauGD3/Twitter-Copy.git
 ```
 2. Navigate to the project directory:
 ```bash
-  cd X
+  cd Frontend
 ```
 3. Move to the Frontend folder:
 ```bash
