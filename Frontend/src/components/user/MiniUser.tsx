@@ -5,13 +5,7 @@ import { userStyles } from "./styles";
 // Material UI icons
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import VerifiedIcon from '@mui/icons-material/Verified';
-// types
-type MiniUserProps = {
-  isVerified: boolean;
-  username: string;
-  aka: string;
-  isOtherUser: boolean;
-}
+
 /**
  * MiniUSer component
  * 

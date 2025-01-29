@@ -14,6 +14,17 @@ const Xlogo = ({ size = 70, fill = "black" }: LogoProps) => {
   );
 };
 
+const Twitter = ({ size = 70, fill = "black" }: LogoProps) => {
+  return (
+    <svg height={size} fill={fill} viewBox="0 0 24 24" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
+      <g>
+        <path d="M7.55 22.14c8.84 0 13.67-7.32 13.67-13.67 0-.21 0-.42-.01-.63A9.78 9.78 0 0 0 24 5.15a9.59 9.59 0 0 1-2.77.76 4.8 4.8 0 0 0 2.1-2.65 9.61 9.61 0 0 1-3.05 1.16 4.79 4.79 0 0 0-8.16 4.37A13.6 13.6 0 0 1 1.64 3.16a4.79 4.79 0 0 0 1.48 6.39A4.74 4.74 0 0 1 1 8.56v.06a4.79 4.79 0 0 0 3.84 4.7 4.8 4.8 0 0 1-2.17.08 4.79 4.79 0 0 0 4.47 3.33A9.6 9.6 0 0 1 0 19.54a13.55 13.55 0 0 0 7.55 2.21" />
+      </g>
+    </svg>
+  );
+};
+
+
 const Home = ({ size = 70, fill = "black" }: LogoProps) => {
   return (
     <svg height={size} fill={fill} viewBox="0 0 24 24" aria-hidden="true">
@@ -54,27 +65,6 @@ const Messages = ({ size = 70, fill = "black" }: LogoProps) => {
       <g>
         <path d="M1.998 5.5c0-1.381 1.119-2.5 2.5-2.5h15c1.381 0 2.5 1.119 2.5 2.5v13c0 1.381-1.119 2.5-2.5 2.5h-15c-1.381 0-2.5-1.119-2.5-2.5v-13zm2.5-.5c-.276 0-.5.224-.5.5v2.764l8 3.638 8-3.636V5.5c0-.276-.224-.5-.5-.5h-15zm15.5 5.463l-8 3.636-8-3.638V18.5c0 .276.224.5.5.5h15c.276 0 .5-.224.5-.5v-8.037z">
         </path>
-      </g>
-    </svg>
-  );
-};
-
-const Grok = ({ size = 70, fill = "black" }: LogoProps) => {
-  return (
-    <svg height={size} fill={fill} viewBox="0 0 24 24" aria-hidden="true">
-      <g>
-        <g clip-path="url(#1-clip0_2592_269)" clip-rule="evenodd">
-          <path d="M18 4.1H6c-1.05 0-1.9.85-1.9 1.9v12c0 1.05.85 1.9 1.9 1.9h12c1.05 0 1.9-.85 1.9-1.9V6c0-1.05-.85-1.9-1.9-1.9zM6 2h12c2.21 0 4 1.79 4 4v12c0 2.21-1.79 4-4 4H6c-2.21 0-4-1.79-4-4V6c0-2.21 1.79-4 4-4z">
-          </path>
-          <path d="M6.68 17.8l8.108-11.58h2.532L9.21 17.8H6.68z">
-          </path>
-        </g>
-        <defs>
-          <clipPath id="1-clip0_2592_269">
-            <rect height="20" rx="1" width="20" x="2" y="2">
-            </rect>
-          </clipPath>
-        </defs>
       </g>
     </svg>
   );
@@ -146,6 +136,17 @@ const More = ({ size = 70, fill = "black" }: LogoProps) => {
   );
 };
 
-
-
-export { Xlogo, Home, Explore, Notifications, Messages, Grok, Bookmarks, Jobs, Communities, VerifiedOrgs, Profile, More }
+export { 
+  Xlogo, 
+  Home, 
+  Explore, 
+  Notifications, 
+  Messages,
+  Bookmarks, 
+  Jobs, 
+  Communities, 
+  VerifiedOrgs, 
+  Profile, 
+  More, 
+  Twitter 
+};

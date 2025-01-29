@@ -1,3 +1,5 @@
+import { DisplaySettings } from "@mui/icons-material";
+
 export const styles = {
   background: {
     backgroundColor: 'rgba(36, 45, 52, 0.48)',
@@ -136,5 +138,8 @@ export const styles = {
   iconPopOver: {
     width: '15px', 
     marginRight: '5px'
+  },
+  hidden: {
+    display: 'block',
   }
 };

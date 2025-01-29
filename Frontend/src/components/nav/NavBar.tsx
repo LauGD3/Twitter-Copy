@@ -1,15 +1,15 @@
 // React & Hooks
 import { useState, SyntheticEvent } from "react";
 // Components
-import NavItem from "./NavItem";
 import MiniUser from "../user/MiniUser";
+import PostModal from "../postTweet/PostModal";
 // Material-UI components
 import { Box, Button, Tab, Tabs } from "@mui/material";
 // Logo components
-import { Xlogo } from "../../assets/icons/Logos";
+import { Bookmarks, Communities, Explore, Home, Jobs, Messages, More, Notifications, Profile, Twitter, VerifiedOrgs } from "../../assets/icons/Logos";
 // Styles
 import { navStyles } from "./style";
-import PostModal from "../postTweet/PostModal";
+import PostArea from "../postTweet/postAreaComponent";
 /**
  * NavBar component
  * 
@@ -26,7 +26,6 @@ export function NavBar() {
     "Explore",
     "Notifications",
     "Messages",
-    "Grok",
     "Bookmarks",
     "Jobs",
     "Communities",
@@ -43,7 +42,7 @@ export function NavBar() {
       <Box sx={navStyles.main}>
         <Box sx={navStyles.navBar}>
           <Box sx={navStyles.navItem}>
-            <Xlogo size={26.25} fill="#fff" />
+            <Twitter size={35} fill="#1da1f2" />
           </Box>
           {/* Map of NavItems, this build the navbar by itsel */}
           {navItems.map((item) => (
@@ -60,10 +59,47 @@ export function NavBar() {
       </Box>
       {/* TopNav & post tweet modal */}
       <TopNavBar />
-      <PostModal open={openModal} handleClose={handleClose}/>
+      <PostModal open={openModal} handleClose={handleClose} />
     </>
   );
-}
+};
+
+type NavItemProps = {
+  title: string;
+  isSelected: boolean;
+  onSelect: (title: string) => void;
+};
+
+/**
+ * NavItem component
+ * 
+ * @param {string} title - The title of the nav item
+ * @param {boolean} isSelected - Whether the nav item is selected
+ * @param {function} onSelect - Function to call when the nav item is selected
+ * @returns {JSX.Element} The rendered NavItem component
+ */
+export function NavItem({ title, isSelected, onSelect }: NavItemProps) {
+  const handleClick = () => { onSelect(title); };
+
+  return (
+    <Box sx={navStyles.navItem} onClick={handleClick}>
+      {/* Dimamic Icon */}
+      {title === "Home" && <Home size={26.25} fill={"#fff"} />}
+      {title === "Explore" && <Explore size={26.25} fill={"#fff"} />}
+      {title === "Notifications" && <Notifications size={26.25} fill={"#fff"} />}
+      {title === "Messages" && <Messages size={26.25} fill={"#fff"} />}
+      {title === "Bookmarks" && <Bookmarks size={26.25} fill={"#fff"} />}
+      {title === "Jobs" && <Jobs size={26.25} fill={"#fff"} />}
+      {title === "Communities" && <Communities size={26.25} fill={"#fff"} />}
+      {title === "VerifiedOrgs" && <VerifiedOrgs size={26.25} fill={"#fff"} />}
+      {title === "Profile" && <Profile size={26.25} fill={"#fff"} />}
+      {title === "More" && <More size={26.25} fill={"#fff"} />}
+
+      {isSelected ? <span> <strong>{title}</strong> </span> : <span>{title}</span>}
+    </Box>
+  );
+};
+
 /**
  * TopNavBar component
  * 
@@ -72,19 +108,22 @@ export function NavBar() {
 function TopNavBar() {
   const [selectedTitle, setSelectedTitle] = useState(0);
 
-  const handleChange = (event: SyntheticEvent, newValue: number) =>  setSelectedTitle(newValue); 
+  const handleChange = (event: SyntheticEvent, newValue: number) => setSelectedTitle(newValue);
 
   return (
-    <Box sx={navStyles.topNavBar}>
-      <Tabs
-        value={selectedTitle}
-        textColor="inherit"
-        onChange={handleChange}
-        variant="standard"
-      >
-        <Tab label="For you" sx={{ ...navStyles.tabs, fontWeight: selectedTitle === 0 ? '500' : 'normal' }} />
-        <Tab label="Following" sx={{ ...navStyles.tabs, fontWeight: selectedTitle === 0 ? 'normal' : '500' }} />
-      </Tabs>
-    </Box>
+    <>
+      <Box sx={navStyles.topNavBar}>
+        <Tabs
+          value={selectedTitle}
+          textColor="inherit"
+          onChange={handleChange}
+          variant="standard"
+        >
+          <Tab label="For you" sx={{ ...navStyles.tabs, fontWeight: selectedTitle === 0 ? '500' : 'normal' }} />
+          <Tab label="Following" sx={{ ...navStyles.tabs, fontWeight: selectedTitle === 0 ? 'normal' : '500' }} />
+        </Tabs>
+        <PostArea topSide={false} />
+      </Box>
+    </>
   );
-}
+};
