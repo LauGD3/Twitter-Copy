@@ -12,6 +12,14 @@ import VerifiedIcon from '@mui/icons-material/Verified';
  * @returns {JSX.Element} The rendered MiniUser component
  */
 export default function MiniUser({ isVerified, username, aka, isOtherUser}: MiniUserProps) {
+  const buttonOrIcon = isOtherUser ? <Button>Follow</Button> : <MoreHorizIcon sx={{ color: "#fff" }} />;
+
+  const verifiedUserUI = isVerified ? (
+    <VerifiedIcon sx={{ color: "#1e9bf0", width: '18px', height: '18px' }} />
+  ) : (
+    <Box sx={userStyles.spaceBox} />
+  );
+
   return (
     <Box sx={userStyles.miniUser}>
       <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: '100%' }}>
@@ -24,17 +32,13 @@ export default function MiniUser({ isVerified, username, aka, isOtherUser}: Mini
           <Box sx={userStyles.textBox}>
             <Box sx={userStyles.verifiedBox}>
               <strong >{aka}</strong>
-              {isVerified ? (
-                <VerifiedIcon sx={{ color: "#1e9bf0", width: '18px', height: '18px' }} />
-              ) : (
-                <Box sx={userStyles.spaceBox} />
-              )}
+              {verifiedUserUI}
             </Box>
             <span style={{ lineHeight: '18px', fontSize: '13px', color: '#71767b' }}>@{username}</span>
           </Box>
         </Box>
-        {isOtherUser ? <Button>Follow</Button> : <MoreHorizIcon sx={{ color: "#fff" }} />}
+        {buttonOrIcon}
       </Box>
     </Box>
   );
-}
+};

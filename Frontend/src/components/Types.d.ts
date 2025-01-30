@@ -27,3 +27,10 @@ type PostModalProps = {
   open: boolean;
   handleClose: () => void;
 };
+
+// ----- NavBar types ----- //
+type NavItemProps = {
+  title: string;
+  isSelected: boolean;
+  onSelect: (title: string) => void;
+};

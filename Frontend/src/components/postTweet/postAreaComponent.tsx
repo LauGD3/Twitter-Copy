@@ -1,5 +1,5 @@
 // React & Types
-import { ChangeEvent, MouseEvent, useState } from "react";
+import { ChangeEvent, MouseEvent, useRef, useState } from "react";
 import { Avatar, Box, Button, Divider, Popover, TextField } from "@mui/material"
 import { styles } from "./style";
 // Material UI - Icons
@@ -31,25 +31,8 @@ export default function PostArea({ topSide }: PostAreaComponent) {
   const [text, setText] = useState("");
   const [percentage, setPercentage] = useState(0);
   const [remaining, setRemaining] = useState(MAX_CHARACTERS);
-  const [isFocused, setIsFocused] = useState(false);
-
-  const fragmentOrBox = !topSide ? (
-    isFocused ? (
-      <>
-        <Box sx={{ paddingLeft: "4.1rem", marginTop: "1rem" }}>
-          <ReplyOptionsModal />
-          <Divider sx={{ backgroundColor: "#1e1e1e" }} />
-        </Box>
-      </>
-    ) : null
-  ) : (
-    <>
-      <ReplyOptionsModal />
-      <Divider sx={{ backgroundColor: "#1e1e1e" }} />
-    </>
-  );
-
-  const showCirle = text.length > 0 ? <ProgressCircle percentage={percentage} remaining={remaining} /> : <Box sx={{ width: "30px" }}></Box>;
+  const isFocusedRef = useRef(false);
+  const [, setRender] = useState(false);
 
   const handleTextChange = (event: ChangeEvent<HTMLInputElement>) => {
     const value = event.target.value;
@@ -60,22 +43,47 @@ export default function PostArea({ topSide }: PostAreaComponent) {
     setRemaining(MAX_CHARACTERS - length);
   };
 
-  const handleFocus = () => setIsFocused(true);
-  const handleBlur = () => text.length === 0 && setIsFocused(false);
+  const handleFocus = () => {
+    if (!isFocusedRef.current) {
+      isFocusedRef.current = true;
+      setRender((prev) => !prev);
+    }
+  };
 
-  const dimensionsBox = topSide ? (
-    { height: "8rem", width: "35rem" }
-  ) : { paddingTop: "0.5rem", borderTop: '1px solid #2f3336' };
+  const fragmentOrBox = !topSide ? (
+    isFocusedRef.current ? (
+      <Box sx={{ paddingLeft: "4.1rem", marginTop: "1rem" }}>
+        <ReplyOptionsModal />
+        <Divider sx={{ backgroundColor: "#1e1e1e" }} />
+      </Box>
+    ) : null
+  ) : (
+    <>
+      <ReplyOptionsModal />
+      <Divider sx={{ backgroundColor: "#1e1e1e" }} />
+    </>
+  );
 
-  const stylesBoxBottom = topSide ? styles.buttomContainer :
-    ({
-      display: 'flex',
-      justifyContent: 'space-between',
-      alignItems: 'center',
-      padding: '0 1rem',
-      paddingBottom: '1rem',
-      paddingLeft: '4.1rem',
-    });
+  const showCircle = text.length > 0 ? (
+    <ProgressCircle percentage={percentage} remaining={remaining} />
+  ) : (
+    <Box sx={{ width: "30px" }}></Box>
+  );
+
+  const dimensionsBox = topSide
+    ? { height: "8rem", width: "35rem" }
+    : { paddingTop: "0.5rem", borderTop: "1px solid #2f3336" };
+
+  const stylesBoxBottom = topSide
+    ? styles.buttomContainer
+    : {
+      display: "flex",
+      justifyContent: "space-between",
+      alignItems: "center",
+      padding: "0 1rem",
+      paddingBottom: "1rem",
+      paddingLeft: "4.1rem",
+    };
 
   return (
     <>
@@ -95,7 +103,6 @@ export default function PostArea({ topSide }: PostAreaComponent) {
             maxRows={topSide ? 4 : 10}
             onChange={handleTextChange}
             onFocus={handleFocus}
-            onBlur={handleBlur}
           />
         </Box>
       </Box>
@@ -106,8 +113,10 @@ export default function PostArea({ topSide }: PostAreaComponent) {
           <GifBoxOutlinedIcon sx={styles.buttomIcons} />
         </Box>
         <Box sx={{ display: "flex", alignItems: "center", gap: "1rem" }}>
-          {showCirle}
-          <Button variant="contained" sx={styles.button}> Post </Button>
+          {showCircle}
+          <Button variant="contained" sx={styles.button}>
+            Post
+          </Button>
         </Box>
       </Box>
     </>
@@ -132,6 +141,17 @@ function ReplyOptionsModal() {
     "Verified accounts",
     "Only accounts you mention",
   ];
+
+  const replyOptionsMap = replyOptions.map((item) => {
+    return (
+      <ReplyOptions
+        key={item}
+        title={item}
+        onSelect={setSelectedTitle}
+        isSelected={selectedTitle === item}
+      />
+    );
+  });
 
   const handleOpenReplyM = (event: MouseEvent<HTMLElement>) => setAnchorEl(event.currentTarget);
 
@@ -174,17 +194,7 @@ function ReplyOptionsModal() {
               reply.
             </span>
           </Box>
-          {replyOptions.map((item) => (
-            <ReplyOptions
-              title={item}
-              onSelect={(title) => {
-                setSelectedTitle(title);
-                handleCloseReplyM();
-              }}
-              isSelected={selectedTitle === item}
-              key={item}
-            />
-          ))}
+          {replyOptionsMap}
         </Box>
       </Popover>
     </>
@@ -241,6 +251,18 @@ const ProgressCircle = ({ percentage, remaining }: ProgressCricleProps) => {
         ? "#FFD400"
         : "#1E9BF0";
 
+  const showText = remaining < +21 && (
+    <text
+      x="12.5"
+      y="13.5"
+      textAnchor="middle"
+      fontSize="10"
+      fill={strokeColor}
+    >
+      {remaining}
+    </text>
+  );
+
   return (
     <svg width="30" height="30" viewBox="0 0 25 25">
       <circle
@@ -262,17 +284,7 @@ const ProgressCircle = ({ percentage, remaining }: ProgressCricleProps) => {
         strokeDashoffset="0"
         transform="rotate(-90 12.5 12.5)"
       />
-      {remaining < +21 && (
-        <text
-          x="12.5"
-          y="13.5"
-          textAnchor="middle"
-          fontSize="10"
-          fill={strokeColor}
-        >
-          {remaining}
-        </text>
-      )}
+      {showText}
     </svg>
   );
 };

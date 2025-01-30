@@ -3,13 +3,14 @@ import { useState, SyntheticEvent } from "react";
 // Components
 import MiniUser from "../user/MiniUser";
 import PostModal from "../postTweet/PostModal";
+import PostArea from "../postTweet/postAreaComponent";
 // Material-UI components
 import { Box, Button, Tab, Tabs } from "@mui/material";
 // Logo components
 import { Bookmarks, Communities, Explore, Home, Jobs, Messages, More, Notifications, Profile, Twitter, VerifiedOrgs } from "../../assets/icons/Logos";
 // Styles
 import { navStyles } from "./style";
-import PostArea from "../postTweet/postAreaComponent";
+
 /**
  * NavBar component
  * 
@@ -33,6 +34,17 @@ export function NavBar() {
     "Profile",
     "More",
   ];
+
+  // Map of items, this build the nav bar by itself
+  const navItemsMap = navItems.map((item) => (
+    <NavItem
+      key={item}
+      title={item}
+      isSelected={selectedTitle === item}
+      onSelect={setSelectedTitle}
+    />
+  ))
+
   // Modal Handlers
   const handleOpen = () => setOpenModal(true);
   const handleClose = () => setOpenModal(false);
@@ -44,15 +56,7 @@ export function NavBar() {
           <Box sx={navStyles.navItem}>
             <Twitter size={35} fill="#1da1f2" />
           </Box>
-          {/* Map of NavItems, this build the navbar by itsel */}
-          {navItems.map((item) => (
-            <NavItem
-              key={item}
-              title={item}
-              isSelected={selectedTitle === item}
-              onSelect={setSelectedTitle}
-            />
-          ))}
+          {navItemsMap}
           <Button variant="contained" sx={navStyles.button} onClick={handleOpen}>Post</Button>
         </Box>
         <MiniUser isVerified={true} username="LauGD3012" aka="LauGD" isOtherUser={false} />
@@ -62,12 +66,6 @@ export function NavBar() {
       <PostModal open={openModal} handleClose={handleClose} />
     </>
   );
-};
-
-type NavItemProps = {
-  title: string;
-  isSelected: boolean;
-  onSelect: (title: string) => void;
 };
 
 /**
