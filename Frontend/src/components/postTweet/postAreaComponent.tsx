@@ -1,7 +1,7 @@
 // React & Types
 import { ChangeEvent, MouseEvent, useRef, useState } from "react";
+// Material UI Components
 import { Avatar, Box, Button, Divider, Popover, TextField } from "@mui/material"
-import { styles } from "./style";
 // Material UI - Icons
 import VerifiedIcon from '@mui/icons-material/Verified';
 import PublicIcon from '@mui/icons-material/Public';
@@ -10,6 +10,19 @@ import AlternateEmailIcon from '@mui/icons-material/AlternateEmail';
 import CheckOutlinedIcon from '@mui/icons-material/CheckOutlined';
 import InsertPhotoOutlinedIcon from '@mui/icons-material/InsertPhotoOutlined';
 import GifBoxOutlinedIcon from '@mui/icons-material/GifBoxOutlined';
+// Styles
+import { 
+  body, 
+  buttomContainer, 
+  buttomContainerVariant, 
+  buttomIcons, button, 
+  buttonPopover, 
+  iconPopOver, 
+  replyOptions, 
+  replyOptionsIcon, 
+  replyPopover, 
+  textField 
+} from "./style";
 
 const MAX_CHARACTERS = 250;
 
@@ -72,34 +85,25 @@ export default function PostArea({ topSide }: PostAreaComponent) {
 
   const dimensionsBox = topSide
     ? { height: "8rem", width: "35rem" }
-    : { paddingTop: "0.5rem", borderTop: "1px solid #2f3336" };
+    : { paddingTop: "0.5rem", borderTop: "1px solid #2f3336", height: "auto" };
 
-  const stylesBoxBottom = topSide
-    ? styles.buttomContainer
-    : {
-      display: "flex",
-      justifyContent: "space-between",
-      alignItems: "center",
-      padding: "0 1rem",
-      paddingBottom: "1rem",
-      paddingLeft: "4.1rem",
-    };
+  const stylesBoxBottom = topSide ? buttomContainer : buttomContainerVariant;
 
   return (
     <>
       <Box sx={dimensionsBox}>
-        <Box sx={styles.bodyModal}>
+        <Box sx={body}>
           <Avatar
             alt="User Avatar"
             src="https://x.com/BFrog__/photo"
-            sx={{ width: 40, height: 40 }}
+            sx={{ width: 40 }}
           />
           <TextField
             multiline
             variant="standard"
             placeholder="What's Happening?!"
             InputProps={{ disableUnderline: true }}
-            sx={styles.textField}
+            sx={textField}
             maxRows={topSide ? 4 : 10}
             onChange={handleTextChange}
             onFocus={handleFocus}
@@ -109,14 +113,12 @@ export default function PostArea({ topSide }: PostAreaComponent) {
       {fragmentOrBox}
       <Box sx={stylesBoxBottom}>
         <Box sx={{ display: "flex" }}>
-          <InsertPhotoOutlinedIcon sx={styles.buttomIcons} />
-          <GifBoxOutlinedIcon sx={styles.buttomIcons} />
+          <InsertPhotoOutlinedIcon sx={buttomIcons} />
+          <GifBoxOutlinedIcon sx={buttomIcons} />
         </Box>
         <Box sx={{ display: "flex", alignItems: "center", gap: "1rem" }}>
           {showCircle}
-          <Button variant="contained" sx={styles.button}>
-            Post
-          </Button>
+          <Button variant="contained" sx={button}>Post</Button>
         </Box>
       </Box>
     </>
@@ -147,25 +149,28 @@ function ReplyOptionsModal() {
       <ReplyOptions
         key={item}
         title={item}
-        onSelect={setSelectedTitle}
+        onSelect={(title) => {
+          setSelectedTitle(title);
+          handleCloseReplyM();
+        }}
         isSelected={selectedTitle === item}
       />
     );
   });
-
+  
   const handleOpenReplyM = (event: MouseEvent<HTMLElement>) => setAnchorEl(event.currentTarget);
-
-  const handleCloseReplyM = () => setTimeout(() => setAnchorEl(null), 40);
-
+  
+  const handleCloseReplyM = () => setAnchorEl(null); ;
+  
   const openReply = Boolean(anchorEl);
 
   return (
     <>
-      <Button onClick={handleOpenReplyM} sx={styles.buttonPopover} >
-        {selectedTitle === "Everyone" && <PublicIcon sx={styles.iconPopOver} />}
-        {selectedTitle === "Account you follow" && <GroupAddIcon sx={styles.iconPopOver} />}
-        {selectedTitle === "Verified accounts" && <VerifiedIcon sx={styles.iconPopOver} />}
-        {selectedTitle === "Only accounts you mention" && <AlternateEmailIcon sx={styles.iconPopOver} />}
+      <Button onClick={handleOpenReplyM} sx={buttonPopover} >
+        {selectedTitle === "Everyone" && <PublicIcon sx={iconPopOver} />}
+        {selectedTitle === "Account you follow" && <GroupAddIcon sx={iconPopOver} />}
+        {selectedTitle === "Verified accounts" && <VerifiedIcon sx={iconPopOver} />}
+        {selectedTitle === "Only accounts you mention" && <AlternateEmailIcon sx={iconPopOver} />}
         {selectedTitle} can reply
       </Button>
 
@@ -183,7 +188,7 @@ function ReplyOptionsModal() {
         }}
         PaperProps={{
           elevation: 3,
-          sx: { ...styles.replyPopover },
+          sx: {...replyPopover},
         }}
       >
         <Box>
@@ -213,13 +218,13 @@ function ReplyOptions({ title, onSelect, isSelected }: ReplyOptionsProps) {
   const handleClick = () => onSelect(title);
 
   return (
-    <Box sx={styles.replyOptions} onClick={handleClick}>
+    <Box sx={replyOptions} onClick={handleClick}>
 
       <Box sx={{ display: "flex", alignItems: "center", gap: "10px" }}>
-        {title === "Everyone" && <PublicIcon sx={styles.replyOptionsIcon} />}
-        {title === "Account you follow" && <GroupAddIcon sx={styles.replyOptionsIcon} />}
-        {title === "Verified accounts" && <VerifiedIcon sx={styles.replyOptionsIcon} />}
-        {title === "Only accounts you mention" && <AlternateEmailIcon sx={styles.replyOptionsIcon} />}
+        {title === "Everyone" && <PublicIcon sx={replyOptionsIcon} />}
+        {title === "Account you follow" && <GroupAddIcon sx={replyOptionsIcon} />}
+        {title === "Verified accounts" && <VerifiedIcon sx={replyOptionsIcon} />}
+        {title === "Only accounts you mention" && <AlternateEmailIcon sx={replyOptionsIcon} />}
         <strong>{title}</strong>
       </Box>
       {isSelected ? <CheckOutlinedIcon sx={{ color: "#1e9bf0" }} /> : <Box sx={{ width: "10px" }} />}

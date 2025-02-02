@@ -2,7 +2,7 @@ import { MouseEvent } from "react";
 // Material UI - Components
 import { Box, Button, Modal } from "@mui/material";
 // Styles
-import { styles } from "./style";
+import { background, icon, modal, modalHeader } from "./style";
 // Material UI - Icons
 import CloseIcon from "@mui/icons-material/Close";
 // Components
@@ -25,10 +25,10 @@ export default function PostModal({ open, handleClose }: PostModalProps) {
       aria-labelledby="modal-modal-title"
       aria-describedby="modal-modal-description"
     >
-      <Box onClick={handleClose} sx={styles.background}>
-        <Box sx={styles.modal} onClick={(e: MouseEvent<HTMLDivElement>) => e.stopPropagation()}>
-          <Box sx={styles.modalHeader}>
-            <CloseIcon onClick={handleClose} sx={styles.icon} />
+      <Box onClick={handleClose} sx={background}>
+        <Box sx={modal} onClick={(e: MouseEvent<HTMLDivElement>) => e.stopPropagation()}>
+          <Box sx={modalHeader}>
+            <CloseIcon onClick={handleClose} sx={icon} />
             <Button sx={{ borderRadius: 30, textTransform: 'none', padding: '5px 20px' }}>Drafts</Button>
           </Box>
           <PostArea topSide={true}/>

@@ -34,3 +34,7 @@ type NavItemProps = {
   isSelected: boolean;
   onSelect: (title: string) => void;
 };
+
+type FollowCardProps = {
+  cardType: string;
+}

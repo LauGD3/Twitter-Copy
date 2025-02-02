@@ -1,15 +1,14 @@
 // React & Hooks
-import { useState, SyntheticEvent } from "react";
+import { useState } from "react";
 // Components
 import MiniUser from "../user/MiniUser";
 import PostModal from "../postTweet/PostModal";
-import PostArea from "../postTweet/postAreaComponent";
 // Material-UI components
-import { Box, Button, Tab, Tabs } from "@mui/material";
+import { Box, Button } from "@mui/material";
 // Logo components
 import { Bookmarks, Communities, Explore, Home, Jobs, Messages, More, Notifications, Profile, Twitter, VerifiedOrgs } from "../../assets/icons/Logos";
 // Styles
-import { navStyles } from "./style";
+import { button, main, navBar, navItem } from "./style";
 
 /**
  * NavBar component
@@ -49,20 +48,21 @@ export function NavBar() {
   const handleOpen = () => setOpenModal(true);
   const handleClose = () => setOpenModal(false);
 
+
   return (
     <>
-      <Box sx={navStyles.main}>
-        <Box sx={navStyles.navBar}>
-          <Box sx={navStyles.navItem}>
+      <Box sx={main}>
+        <Box sx={navBar}>
+          <Box sx={navItem}>
             <Twitter size={35} fill="#1da1f2" />
           </Box>
           {navItemsMap}
-          <Button variant="contained" sx={navStyles.button} onClick={handleOpen}>Post</Button>
+          <Button variant="contained" sx={button} onClick={handleOpen}>Post</Button>
         </Box>
-        <MiniUser isVerified={true} username="LauGD3012" aka="LauGD" isOtherUser={false} />
+        <Box sx={{margin: '1rem'}}>
+          <MiniUser isVerified={true} username="LauGD3012" aka="LauGD" isOtherUser={false} />
+        </Box>
       </Box>
-      {/* TopNav & post tweet modal */}
-      <TopNavBar />
       <PostModal open={openModal} handleClose={handleClose} />
     </>
   );
@@ -80,7 +80,7 @@ export function NavItem({ title, isSelected, onSelect }: NavItemProps) {
   const handleClick = () => { onSelect(title); };
 
   return (
-    <Box sx={navStyles.navItem} onClick={handleClick}>
+    <Box sx={navItem} onClick={handleClick}>
       {/* Dimamic Icon */}
       {title === "Home" && <Home size={26.25} fill={"#fff"} />}
       {title === "Explore" && <Explore size={26.25} fill={"#fff"} />}
@@ -95,33 +95,5 @@ export function NavItem({ title, isSelected, onSelect }: NavItemProps) {
 
       {isSelected ? <span> <strong>{title}</strong> </span> : <span>{title}</span>}
     </Box>
-  );
-};
-
-/**
- * TopNavBar component
- * 
- * @returns {JSX.Element} The rendered NavBar component
- */
-function TopNavBar() {
-  const [selectedTitle, setSelectedTitle] = useState(0);
-
-  const handleChange = (event: SyntheticEvent, newValue: number) => setSelectedTitle(newValue);
-
-  return (
-    <>
-      <Box sx={navStyles.topNavBar}>
-        <Tabs
-          value={selectedTitle}
-          textColor="inherit"
-          onChange={handleChange}
-          variant="standard"
-        >
-          <Tab label="For you" sx={{ ...navStyles.tabs, fontWeight: selectedTitle === 0 ? '500' : 'normal' }} />
-          <Tab label="Following" sx={{ ...navStyles.tabs, fontWeight: selectedTitle === 0 ? 'normal' : '500' }} />
-        </Tabs>
-        <PostArea topSide={false} />
-      </Box>
-    </>
   );
 };
