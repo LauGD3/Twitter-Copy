@@ -3,7 +3,7 @@ import { SyntheticEvent, useState } from "react";
 import { tabs, topNavBar } from "./style";
 // Material UI Components
 import { Box, Tab, Tabs } from "@mui/material";
-import PostArea from "../postTweet/postAreaComponent";
+import PostArea from "../tweets/postAreaComponent";
 
 /**
  * TopNavBar component

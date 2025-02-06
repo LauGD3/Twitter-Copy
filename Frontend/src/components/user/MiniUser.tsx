@@ -5,7 +5,7 @@ import { avAndtext, miniUser, spaceBox, textBox, verifiedBox, cardStyles, cardVa
 // Material UI icons
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import VerifiedIcon from '@mui/icons-material/Verified';
-import { button } from "../postTweet/style";
+import { button } from "../tweets/style";
 
 /**
  * MiniUSer component

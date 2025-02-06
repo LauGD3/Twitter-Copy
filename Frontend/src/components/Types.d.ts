@@ -38,3 +38,9 @@ type NavItemProps = {
 type FollowCardProps = {
   cardType: string;
 }
+
+// ----- PostCard types ----- //
+
+type CardProps = {
+  cardType: string[] | string;
+};

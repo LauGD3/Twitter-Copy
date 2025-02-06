@@ -2,7 +2,7 @@
 import { useState } from "react";
 // Components
 import MiniUser from "../user/MiniUser";
-import PostModal from "../postTweet/PostModal";
+import PostModal from "../tweets/PostModal";
 // Material-UI components
 import { Box, Button } from "@mui/material";
 // Logo components
