@@ -5,10 +5,12 @@ import MiniUser from "../user/MiniUser";
 import PostModal from "../tweets/PostModal";
 // Material-UI components
 import { Box, Button } from "@mui/material";
+// Material-UI icons
+import HistoryEduIcon from '@mui/icons-material/HistoryEdu';
 // Logo components
 import { Bookmarks, Communities, Explore, Home, Jobs, Messages, More, Notifications, Profile, Twitter, VerifiedOrgs } from "../../assets/icons/Logos";
 // Styles
-import { button, main, navBar, navItem } from "./style";
+import { button, main, navBar, navItem, buttonIcon } from "./style";
 
 /**
  * NavBar component
@@ -16,10 +18,11 @@ import { button, main, navBar, navItem } from "./style";
  * @returns {JSX.Element} The rendered NavBar component
  */
 
-export function NavBar() {
+export default function NavBar() {
   // States
   const [selectedTitle, setSelectedTitle] = useState<string>("Home"); // Selected nav item
   const [openModal, setOpenModal] = useState(false);
+
   // List of nav items
   const navItems = [
     "Home",
@@ -35,7 +38,7 @@ export function NavBar() {
   ];
 
   // Map of items, this build the nav bar by itself
-  const navItemsMap = navItems.map((item) => (
+  const navItemsMap: JSX.Element[] = navItems.map((item) => (
     <NavItem
       key={item}
       title={item}
@@ -57,9 +60,12 @@ export function NavBar() {
             <Twitter size={35} fill="#1da1f2" />
           </Box>
           {navItemsMap}
-          <Button variant="contained" sx={button} onClick={handleOpen}>Post</Button>
+          <Button variant="contained" sx={button} onClick={handleOpen}>
+            <HistoryEduIcon sx={buttonIcon} />
+            <span>Post</span>
+          </Button>
         </Box>
-        <Box sx={{margin: '1rem'}}>
+        <Box sx={{ margin: '1rem', '@media (max-width: 1200px)': { display: 'none' } }}>
           <MiniUser isVerified={true} username="LauGD3012" aka="LauGD" isOtherUser={false} />
         </Box>
       </Box>
@@ -79,21 +85,29 @@ export function NavBar() {
 export function NavItem({ title, isSelected, onSelect }: NavItemProps) {
   const handleClick = () => { onSelect(title); };
 
+  const dinamicIcon = () => {
+    const icon =
+      title === 'Home' ? <Home size={26.25} fill={'#fff'} /> :
+        title === 'Explore' ? <Explore size={26.25} fill={'#fff'} /> :
+          title === 'Notifications' ? <Notifications size={26.25} fill={'#fff'} /> :
+            title === 'Messages' ? <Messages size={26.25} fill={'#fff'} /> :
+              title === 'Bookmarks' ? <Bookmarks size={26.25} fill={'#fff'} /> :
+                title === 'Jobs' ? <Jobs size={26.25} fill={'#fff'} /> :
+                  title === 'Communities' ? <Communities size={26.25} fill={'#fff'} /> :
+                    title === 'VerifiedOrgs' ? <VerifiedOrgs size={26.25} fill={'#fff'} /> :
+                      title === 'Profile' ? <Profile size={26.25} fill={'#fff'} /> :
+                        title === 'More' ? <More size={26.25} fill={'#fff'} /> : null;
+    return icon;
+  };
+
+  const handlChangSelectedT = isSelected ? <span><strong>{title}</strong> </span> : <span>{title}</span>;
+
   return (
     <Box sx={navItem} onClick={handleClick}>
-      {/* Dimamic Icon */}
-      {title === "Home" && <Home size={26.25} fill={"#fff"} />}
-      {title === "Explore" && <Explore size={26.25} fill={"#fff"} />}
-      {title === "Notifications" && <Notifications size={26.25} fill={"#fff"} />}
-      {title === "Messages" && <Messages size={26.25} fill={"#fff"} />}
-      {title === "Bookmarks" && <Bookmarks size={26.25} fill={"#fff"} />}
-      {title === "Jobs" && <Jobs size={26.25} fill={"#fff"} />}
-      {title === "Communities" && <Communities size={26.25} fill={"#fff"} />}
-      {title === "VerifiedOrgs" && <VerifiedOrgs size={26.25} fill={"#fff"} />}
-      {title === "Profile" && <Profile size={26.25} fill={"#fff"} />}
-      {title === "More" && <More size={26.25} fill={"#fff"} />}
-
-      {isSelected ? <span> <strong>{title}</strong> </span> : <span>{title}</span>}
+      {dinamicIcon()}
+      <Box sx={{ '@media (max-width: 1200px)': { display: 'none' } }}>
+        {handlChangSelectedT}
+      </Box>
     </Box>
   );
 };

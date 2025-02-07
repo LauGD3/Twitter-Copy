@@ -69,3 +69,30 @@ export const spaceBox = {
   width: '18px', 
   height: '18px'
 };
+
+export const button = {
+  padding: '3px 14px',
+  backgroundColor: '#fff',
+  color: 'black',
+  borderRadius: '20px',
+  textTransform: 'none',
+  fontSize: '0.9rem',
+  fontWeight: '600',
+  '&:hover': {
+    backgroundColor: '#d7dbdc',
+  },
+};
+
+export const followButton = {
+  padding: '3px 14px',
+  backgroundColor: 'transparent',
+  color: '#FFF',
+  borderRadius: '20px',
+  textTransform: 'none',
+  fontSize: '0.9rem',
+  fontWeight: '600',
+  border: '2px solid rgba(255, 0, 0, 0.59)',
+  '&:hover': {
+    backgroundColor: 'rgba(255, 0, 0, 0.8)',
+  },
+};

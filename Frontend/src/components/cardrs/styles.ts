@@ -4,7 +4,7 @@ export const cardStyles = {
   flexDirection: 'column',
   border: '1px solid #2f3336',
   borderRadius: '20px',
-  minWidth: '300px',
+  minWidth: '18.75rem',
   minHeight: '21.75rem',
   maxHeight: '25.5rem',
   width: 'fit-content',
@@ -21,7 +21,14 @@ export const cardStyles = {
     '&:hover': {
       backgroundColor: '#1e1e1e',
     }
-  }
+  },
+  '@media (max-width: 1030px)': {
+    minWidth: '15.75rem',
+  },
+  '@media (max-width: 985px)': {
+    minWidth: '10.75rem',
+    width: '100%',
+  },
 };
 
 export const trendingBox = {
@@ -81,4 +88,7 @@ export const columBoxStyles = {
   height: '100%',
   justifyContent: 'center',
   alignItems: 'center',
-}
+  '@media (max-width: 960px)': {
+    display: 'none',
+  }
+};

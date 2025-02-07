@@ -1,11 +1,12 @@
+// Hooks
+import { useState } from "react";
 // Material UI component
 import { Avatar, Box, Button } from "@mui/material";
 // styles
-import { avAndtext, miniUser, spaceBox, textBox, verifiedBox, cardStyles, cardVariant } from "./styles";
+import { avAndtext, miniUser, spaceBox, textBox, verifiedBox, cardStyles, cardVariant, button, followButton } from "./styles";
 // Material UI icons
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import VerifiedIcon from '@mui/icons-material/Verified';
-import { button } from "../tweets/style";
 
 /**
  * MiniUSer component
@@ -13,7 +14,7 @@ import { button } from "../tweets/style";
  * @returns {JSX.Element} The rendered MiniUser component
  */
 export default function MiniUser({ isVerified, username, aka, isOtherUser }: MiniUserProps) {
-  const buttonOrIcon = isOtherUser ? <Button sx={button}>Follow</Button> : <MoreHorizIcon sx={{ color: "#fff" }} />;
+  const [isFollowing, setIsFollowing] = useState(false);
 
   const verifiedUserUI = isVerified ? (
     <VerifiedIcon sx={{ color: "#1e9bf0", width: '18px', height: '18px' }} />
@@ -23,7 +24,16 @@ export default function MiniUser({ isVerified, username, aka, isOtherUser }: Min
 
   const cStyles = isOtherUser ? cardStyles : miniUser;
   const minUserBox = isOtherUser ? cardVariant : miniUser;
+  const bStyle = !isFollowing ? button : followButton;
 
+  const buttonOrIcon = isOtherUser ? (
+    <Button
+      sx={bStyle}
+      onClick={() => setIsFollowing(!isFollowing)}
+    >
+      {isFollowing ? "Unfollow" : 'Follow'}
+    </Button>
+  ) : <MoreHorizIcon sx={{ color: "#fff" }} />;
 
   return (
     <Box sx={cStyles}>

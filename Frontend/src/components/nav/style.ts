@@ -4,7 +4,7 @@ export const main = {
   display: 'flex',
   flexDirection: 'column',
   justifyContent: 'space-between',
-  width: '230px',  
+  width: 'fit-content',
   height: '100vh'
 };
 
@@ -14,7 +14,10 @@ export const navBar = {
   alignItems: 'start',
   top: '0',
   left: '0',
-  gap: '6px'
+  gap: '6px',
+  '@media (max-width: 1200px)': {
+    alignItems: 'end',
+  }
 };
 
 export const navItem = {
@@ -44,10 +47,28 @@ export const button = {
   textTransform: 'none',
   fontSize: '1.1rem',
   fontWeight: '600',
+  '& HistoryEduIcon': { display: 'none' },
   '&:hover': {
     backgroundColor: '#d7dbdc',
-  }
+  },
+  '@media (max-width: 1200px)': {
+    '& span': { display: 'none' },
+    height: '0',
+    width: '0',
+    margin: '0',
+    padding: '2rem 1rem',
+    borderRadius: '50%',
+  },
 };
+
+export const buttonIcon = {
+  display: 'none',
+  '@media (max-width: 1200px)': {
+    display: 'block',
+    margin: '0',
+    padding: '0',
+  },
+}
 
 // ----- TopBar Component Styles ----- //
 
@@ -62,9 +83,9 @@ export const tabs = {
 };
 
 export const topNavBar = {
-  width: '100%',           
+  width: '100%',
   maxWidth: '598px',
-  top: '0', 
+  top: '0',
   border: '1px solid #2f3336',
   backgroundColor: 'rgba(0, 0, 0, 0.8)',
   height: '100%',
