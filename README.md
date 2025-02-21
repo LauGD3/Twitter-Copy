@@ -1,15 +1,6 @@
 # Twitter Copy - A copy of the social network Twitter
 This repository was created to improve my frontend development skills with TypeScript and React. I used a template from Vite with SWC to set up the project. The main goal is to replicate the visual aspects of the social network Twitter. While this is currently just a frontend clone, I plan to update it in the future by integrating persistence and a backend, making it a fully functional copy as close as possible to the original. This project serves as an educational tool for me to learn and apply modern web development techniques.
 
-# Dependencies 👾
-
-## Frontend
-### MUI & MUI - Icons
-
-MUI (Material UI) is the primary dependency of this project, and I’m using it to build all of the React components. I’ve been learning how to use this powerful tool as I code, referring to [the official documentacion:](https://mui.com/material-ui/getting-started/). Additionally, MUI offers another package called MUI - Icons, which provides an extensive library of icons available as React components, making it extremely useful for quickly adding icons to the application.
-
-If for some reason i need to install other dependency, i'll put here explaining what it does.
-
 # Contributing
 
 Contributions are always welcome! If you find any bugs or have suggestions for improvements, feel free to open an issue or submit a pull request. However, please note that all contributions should be made through a separate branch.
@@ -26,31 +17,6 @@ Contributions are always welcome! If you find any bugs or have suggestions for i
 
 *I will review all pull requests and merge them after making sure they align with the goals of the project.*
 
-# How to setup & run the project (frontend)
+## How to run the proyect & more detaild about the dependencies 
 
-Follow these steps to get the project up and running on your local machine:
-
-1. Clone the repository:
-```bash
-  git clone https://github.com/LauGD3/Twitter-Copy.git
-```
-2. Navigate to the project directory:
-```bash
-  cd Frontend
-```
-3. Move to the Frontend folder:
-```bash
-  cd Frontend
-```
-4. Install dependencies:
-```bash
-  npm i
-```
-5. Start the development server:
-```bash
-  npm run dev
-```
-
-# About the Twitter-chirp Font
-
-This font family was created by Twitter and is proprietary, intended exclusively for use by the company's team. However, I came across an unofficial copy on GitHub. [Here is the repository:](https://github.com/edwardbetes/chirp-font).  
+*1. [Frontend:](Frontend/README.md)*
